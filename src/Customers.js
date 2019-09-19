@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-import Panel from 'react-bootstrap/lib/Panel'
-import Button from 'react-bootstrap/lib/Button'
 import CustomerDetails from './CustomerDetails'
 import axios from 'axios'
 
@@ -13,12 +11,10 @@ export default class Customers extends Component {
     }
   }
 
-  //function which is called the first time the component loads
   componentDidMount() {
     this.getCustomerData();
   }
 
-  //Function to get the Customer Data from json
   getCustomerData() {
     axios.get('assets/samplejson/customerlist.json').then(response => {
       this.setState({customerList: response})
@@ -28,31 +24,34 @@ export default class Customers extends Component {
   render() {
     if (!this.state.customerList)
       return (<p>Loading data</p>)
-    return (<div className="addmargin">
-      <div className="col-md-3">
+    return (
+    <div className="container-fluid">
+       <div className="row">
         {
-
-          this.state.customerList.data.map(customer => <Panel bsStyle="info" key={customer.name} className="centeralign">
-            <Panel.Heading>
-              <Panel.Title componentClass="h3">{customer.name}</Panel.Title>
-            </Panel.Heading>
-            <Panel.Body>
-              <p>{customer.email}</p>
-              <p>{customer.phone}</p>
-              <Button bsStyle="info" onClick={() => this.setState({selectedCustomer: customer.id})}>
-
-                Click to View Details
-
-              </Button>
-
-            </Panel.Body>
-          </Panel>)
+          this.state.customerList.data.map(customer => <div className="col-sm-4 d-flex justify-content-around"><div className="card" style={{width:'300px'}} key={customer.name}>
+            <img className="card-img-top" src="https://www.w3schools.com/bootstrap4/img_avatar3.png" alt="Card image" />
+            <div className="card-body">
+              <div className="card-title">
+                <strong>{customer.name}</strong>
+              </div>
+              <div className="card-text">
+                <p>{customer.email}</p>
+                <p>{customer.phone}</p>
+                <button style={{backgroundColor:'#b19cd9',border:'none',borderRadius:'25px'}} onClick={() => this.setState({selectedCustomer: customer.id})} data-toggle="modal" data-target="#exampleModalCenter">
+                  View Details
+                </button>
+              </div>
+            </div>
+          </div>
+          </div>)
         }
-      </div>
-      <div className="col-md-6">
+        
+      
+      
         <CustomerDetails val={this.state.selectedCustomer}/>
       </div>
-    </div>)
+    </div>
+    )
   }
 
 }
