@@ -28,7 +28,7 @@ export default class Customers extends Component {
     <div className="container-fluid">
        <div className="row">
         {
-          this.state.customerList.data.map(customer => <div className="col-sm-4 d-flex justify-content-around"><div className="card" style={{width:'300px'}} key={customer.name}>
+          this.state.customerList.data.map(customer => <div className="col-sm-6 d-flex justify-content-around"><div className="card" style={{width:'300px'}} key={customer.name}>
             <img className="card-img-top" src="https://www.w3schools.com/bootstrap4/img_avatar3.png" alt="Card image" />
             <div className="card-body">
               <div className="card-title">
